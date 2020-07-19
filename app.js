@@ -7,8 +7,18 @@ const ui = new UI();
 // search Input
 const searchUser = document.getElementById("searchUser");
 
+const debounce = (func, delay = 250) => {
+    let timeout;
+    return (...args) => {
+        clearTimeout(timeout);
+        timeout = setTimeout(() => {
+            func.apply(this, args);
+        }, delay);
+    }
+};
+
 // Serach Input event Listener
-searchUser.addEventListener('keyup', (e) => {
+searchUser.addEventListener('keyup', debounce((e) => {
     // Get input text
     const userText = e.target.value;
 
@@ -29,4 +39,4 @@ searchUser.addEventListener('keyup', (e) => {
         // Clear Profile
         ui.clearProfile();
     }
-});
+}));
